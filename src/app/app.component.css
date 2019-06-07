@@ -1,0 +1,17 @@
+.controls, .game{
+  border: 1px solid black;
+}
+
+.controls{
+  width: 95%;
+  padding: 10px;
+  margin: auto;
+}
+
+.game{
+  width: 95vw;
+  height: 95vh;
+  margin: auto;
+ }
+
+
