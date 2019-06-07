@@ -1,0 +1,16 @@
+table {
+  width: 30vw;
+  height: 30vw;
+  border-collapse: collapse;
+  margin: 5% auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+td{
+  text-align: center;
+}
+
+
+

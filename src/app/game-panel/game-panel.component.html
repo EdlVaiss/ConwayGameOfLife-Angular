@@ -1,0 +1,7 @@
+<table>
+  <tr *ngFor="let ritem of numberArray(); let i = index;">
+    <td id = "{{i}}:{{k}}" *ngFor="let citem of numberArray(); let k = index;"
+         (click) = "toogleCell($event)">
+    </td>
+  </tr>
+</table>
