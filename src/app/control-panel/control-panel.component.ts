@@ -23,4 +23,8 @@ export class ControlPanelComponent implements OnInit {
     this.gamePanel.refresh();
   }
 
+  resizeGame() {
+    this.dexServise.changeGameSize(this.gameSize);
+  }
+
 }

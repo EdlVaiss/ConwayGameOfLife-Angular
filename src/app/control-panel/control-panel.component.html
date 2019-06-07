@@ -1,4 +1,10 @@
 <div class = "controlsContainer">
   <button pButton type="button" label="NextGen" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
-  <p-slider [(ngModel)]="gameSize" [min]="10" [max]="40"></p-slider>
+  <div>
+    <h3>Game Size: {{gameSize}}</h3>
+    <p-slider [(ngModel)]="gameSize" [min]="10" [max]="40" [style]="{'width':'14em'}"></p-slider>
+    <div class = "applyBtn">
+      <button pButton type="button" label="Apply" class="ui-button-raised ui-button-rounded" (click) = "resizeGame()"></button>
+    </div>
+  </div>
 </div>

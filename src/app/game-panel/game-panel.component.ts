@@ -99,8 +99,8 @@ export class GamePanelComponent implements OnInit {
       const td = document.getElementById(cell.id);
       td.style.backgroundColor = cell.color;
       if (cell.color !== '') {
-      console.log('ID: ' + cell.id + ' Color: ' + cell.color);
-    }
+        console.log('ID: ' + cell.id + ' Color: ' + cell.color);
+     }
     });
     console.log('Refresh finished');
   }

@@ -5,15 +5,20 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataExchangeService {
+
   private gameSize: BehaviorSubject;
-  private currentGameSize;
+  private _currentGameSize;
 
   constructor() {
     this.gameSize = new BehaviorSubject(20);
-    this.currentGameSize = this.gameSize.asObservable();
+    this._currentGameSize = this.gameSize.asObservable();
   }
 
   changeGameSize(gameSize: number) {
     this.gameSize.next(gameSize);
+  }
+
+  get currentGameSize() {
+    return this._currentGameSize;
   }
 }
