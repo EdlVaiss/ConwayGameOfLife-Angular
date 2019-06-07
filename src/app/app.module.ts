@@ -8,6 +8,7 @@ import { ControlPanelComponent } from './control-panel/control-panel.component';
 
 import {ButtonModule} from 'primeng/button';
 import {SliderModule} from 'primeng/slider';
+import {SpinnerModule} from 'primeng/spinner';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {SliderModule} from 'primeng/slider';
     BrowserModule,
     FormsModule,
     ButtonModule,
-    SliderModule
+    SliderModule,
+    SpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
