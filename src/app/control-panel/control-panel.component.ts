@@ -11,6 +11,7 @@ import {DataExchangeService} from '../data-exchange.service';
 export class ControlPanelComponent implements OnInit {
 
   gameSize: number;
+  isApplyBtnDisabled = true;
 
   constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
@@ -26,6 +27,11 @@ export class ControlPanelComponent implements OnInit {
   resizeGame() {
     this.dexServise.changeGameSize(this.gameSize);
     this.vitalService.reboot(this.gameSize);
+    this.isApplyBtnDisabled = true;
+  }
+
+  enableApplyBtn() {
+    this.isApplyBtnDisabled = false;
   }
 
 }
