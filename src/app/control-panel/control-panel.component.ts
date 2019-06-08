@@ -11,6 +11,8 @@ import {DataExchangeService} from '../data-exchange.service';
 export class ControlPanelComponent implements OnInit {
 
   gameSize: number;
+  speed: number;
+  speedLabel: string;
   isApplyBtnDisabled = true;
   private previousGameSize: number;
 
@@ -36,4 +38,23 @@ export class ControlPanelComponent implements OnInit {
       this.isApplyBtnDisabled = false;
   }
 
+  getSpeedLabel() {
+    switch (this.speed){
+      case 10: {
+        this.speedLabel = "low";
+        break;
+      }
+      case 20: {
+        this.speedLabel = "med";
+        break;
+      }
+      case 30: {
+        this.speedLabel = "high";
+        break;
+      }
+      default: {
+        this.speedLabel = "low";
+      }
+    }
+  }
 }

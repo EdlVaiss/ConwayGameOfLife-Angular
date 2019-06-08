@@ -1,7 +1,12 @@
 <div class = "controlsContainer">
 
+  <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
+  <button pButton type="button" label="start" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
+  <button pButton type="button" label="next" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
+  <h3>Speed: {{speed}}</h3>
 
-  <button pButton type="button" label="NextGen" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
+  <p-slider class = "speedSlider" [(ngModel)]="speed" [min]="10" [max]="30" [style]="{'width':'14em'}" [step]="10" (onChange)="getSpeedLabel()"></p-slider>
+
   <div>
     <h3>Game Size: {{gameSize}}</h3>
     <p-slider [(ngModel)]="gameSize" [min]="10" [max]="40" [style]="{'width':'14em'}" (onChange)="enableApplyBtn()"></p-slider>

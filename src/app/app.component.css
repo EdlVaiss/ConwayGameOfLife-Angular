@@ -3,14 +3,14 @@
 }
 
 .controls{
-  width: 95%;
+
   padding: 10px;
-  margin: auto;
+
 }
 
 .game{
   width: 95vw;
-  padding-bottom: 1em ;
+  padding: 0 1em 1em 1em;
   margin: auto;
  }
 
