@@ -12,6 +12,7 @@ export class ControlPanelComponent implements OnInit {
 
   gameSize: number;
   isApplyBtnDisabled = true;
+  private previousGameSize: number;
 
   constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
@@ -25,13 +26,14 @@ export class ControlPanelComponent implements OnInit {
   }
 
   resizeGame() {
+    this.previousGameSize = this.gameSize;
     this.dexServise.changeGameSize(this.gameSize);
     this.vitalService.reboot(this.gameSize);
     this.isApplyBtnDisabled = true;
   }
 
   enableApplyBtn() {
-    this.isApplyBtnDisabled = false;
+      this.isApplyBtnDisabled = false;
   }
 
 }
