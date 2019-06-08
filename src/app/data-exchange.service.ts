@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataExchangeService {
 
-  private gameSize: BehaviorSubject;
+  private gameSize: BehaviorSubject<number>;
   private _currentGameSize;
 
   constructor() {

@@ -8,7 +8,7 @@ import {Cell} from './cell';
 export class VitalService {
 
 
-  private _cells = new Map();
+  private _cells = new Map<string, Cell>();
 
   constructor() { }
 
@@ -83,7 +83,7 @@ export class VitalService {
     });
   }
 
-  get cells(): Map {
+  get cells(): Map<string, Cell> {
     return this._cells;
   }
 }
