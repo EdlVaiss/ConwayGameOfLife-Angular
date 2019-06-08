@@ -10,7 +10,7 @@
 
 .game{
   width: 95vw;
-  height: 95vh;
+  padding-bottom: 1em ;
   margin: auto;
  }
 
