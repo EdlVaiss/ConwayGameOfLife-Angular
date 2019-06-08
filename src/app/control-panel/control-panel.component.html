@@ -3,7 +3,7 @@
   <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
   <button pButton type="button" label="start" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
   <button pButton type="button" label="next" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
-  <h3>Speed: {{speed}}</h3>
+  <h3>Speed: {{speedLabel}}</h3>
 
   <p-slider class = "speedSlider" [(ngModel)]="speed" [min]="10" [max]="30" [style]="{'width':'14em'}" [step]="10" (onChange)="getSpeedLabel()"></p-slider>
 
