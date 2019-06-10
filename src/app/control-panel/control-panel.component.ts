@@ -14,7 +14,9 @@ export class ControlPanelComponent implements OnInit {
   speed: number;
   speedLabel: string;
   isApplyBtnDisabled = true;
+  isStartBtnEnabled = true;
   private previousGameSize: number;
+  private timerId: number;
 
   constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
@@ -35,6 +37,16 @@ export class ControlPanelComponent implements OnInit {
     this.gamePanel.refresh();
   }
 
+  start(): void {
+    this.isStartBtnEnabled = false;
+    this.timerId = setInterval(() => { this.nextGen(); }, 10000/Math.pow(10,this.speed/10));
+  }
+
+  stop(): void {
+    clearTimeout(this.timerId);
+    this.isStartBtnEnabled = true;
+  }
+
   resizeGame() {
     this.previousGameSize = this.gameSize;
     this.dexServise.changeGameSize(this.gameSize);
@@ -47,21 +59,21 @@ export class ControlPanelComponent implements OnInit {
   }
 
   getSpeedLabel() {
-    switch (this.speed){
+    switch (this.speed) {
       case 10: {
-        this.speedLabel = "low";
+        this.speedLabel = 'low';
         break;
       }
       case 20: {
-        this.speedLabel = "med";
+        this.speedLabel = 'med';
         break;
       }
       case 30: {
-        this.speedLabel = "high";
+        this.speedLabel = 'high';
         break;
       }
       default: {
-        this.speedLabel = "low";
+        this.speedLabel = 'low';
       }
     }
   }
