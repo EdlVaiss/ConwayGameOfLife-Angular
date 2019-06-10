@@ -39,7 +39,7 @@ export class VitalService {
   }
 
   private pushToHistory(): void {
-    this.history.push(cloneDeep(this._cells));
+   this.history[this.pointer - 1] = cloneDeep(this._cells);
   }
 
   private populate(gameSize: number): void {
