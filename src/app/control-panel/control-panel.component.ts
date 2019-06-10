@@ -20,10 +20,18 @@ export class ControlPanelComponent implements OnInit {
 
   ngOnInit() {
     this.dexServise.currentGameSize.subscribe(gameSize => this.gameSize = gameSize);
+    this.speed = 10;
+    this.getSpeedLabel();
   }
 
+
   nextGen(): void {
-    this.vitalService.run();
+    this.vitalService.nextGen();
+    this.gamePanel.refresh();
+  }
+
+  previousGen(): void {
+    this.vitalService.previousGen();
     this.gamePanel.refresh();
   }
 
