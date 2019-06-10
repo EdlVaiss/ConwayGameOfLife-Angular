@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Cell} from './cell';
-
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,15 @@ import {Cell} from './cell';
 export class VitalService {
 
 
-  private _cells = new Map<string, Cell>();
+  private _cells: Map<string, Cell>;
+  private history: Array<Map<string, Cell>>;
+  private pointer: number;
 
-  constructor() { }
+  constructor() {
+    this._cells = new Map<string, Cell>();
+    this.history = [];
+    this.pointer = 0;
+  }
 
   private clean(): void {
     this._cells.forEach((cell: Cell, key: string) =>  {
@@ -24,19 +30,16 @@ export class VitalService {
     });
   }
 
-  run(): void {
-    this.check();
-    this.clean();
-  }
-
-  reboot(gameSize: number): void {
-    this.dropCellsMap();
-    this.populate(gameSize);
-    this.setNeighbours(gameSize);
-  }
-
   private dropCellsMap(): void {
     this._cells = new Map();
+  }
+
+  private dropHistory(): void {
+    this.history = [];
+  }
+
+  private pushToHistory(): void {
+    this.history.push(cloneDeep(this._cells));
   }
 
   private populate(gameSize: number): void {
@@ -51,8 +54,8 @@ export class VitalService {
   private setNeighbours(gameSize: number): void {
     this._cells.forEach((cell: Cell, key: string) =>  {
       const id = cell.id;
-      let row = Number(id.split(':')[0]);
-      let column = Number(id.split(':')[1]);
+      const row = Number(id.split(':')[0]);
+      const column = Number(id.split(':')[1]);
       let neighbourRow;
       let neighbourColumn;
 
@@ -81,6 +84,46 @@ export class VitalService {
         }
       }
     });
+  }
+
+  run(): void {
+    this.pushToHistory();
+    this.check();
+    this.clean();
+  }
+
+  reboot(gameSize: number): void {
+    this.dropCellsMap();
+    this.dropHistory();
+    this.populate(gameSize);
+    this.setNeighbours(gameSize);
+  }
+
+  nextGen(): void {
+    this.pointer++;
+
+    if (this.pointer > this.history.length - 1) {
+      this.run();
+    } else {
+      this.retreiveFromHistory(this.pointer);
+    }
+    //TODO del console log
+    console.log("NextGen called. Pointer: " + this.pointer);
+  }
+
+  previousGen(): void {
+    this.pointer--;
+
+    if (this.pointer < 0) {
+      this.pointer = 0;
+    }
+    this.retreiveFromHistory(this.pointer);
+    //TODO del console log
+    console.log("PrevGen called. Pointer: " + this.pointer);
+  }
+
+  retreiveFromHistory(index: number): void {
+    this._cells = this.history[index];
   }
 
   get cells(): Map<string, Cell> {
