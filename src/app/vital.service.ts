@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import {Cell} from './cell';
 import * as cloneDeep from 'lodash/cloneDeep';
+import {tryCatch} from 'rxjs/internal-compatibility';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VitalService {
 
-
   private _cells: Map<string, Cell>;
   private history: Array<Map<string, Cell>>;
-  private pointer: number;
+  private _pointer: number;
 
   constructor() {
     this._cells = new Map<string, Cell>();
     this.history = [];
-    this.pointer = 0;
+    this._pointer = 0;
   }
 
   private clean(): void {
@@ -39,7 +39,7 @@ export class VitalService {
   }
 
   private pushToHistory(): void {
-   this.history[this.pointer - 1] = cloneDeep(this._cells);
+   this.history[this._pointer - 1] = cloneDeep(this._cells);
   }
 
   private populate(gameSize: number): void {
@@ -93,6 +93,7 @@ export class VitalService {
   }
 
   reboot(gameSize: number): void {
+    this._pointer = 0;
     this.dropCellsMap();
     this.dropHistory();
     this.populate(gameSize);
@@ -100,26 +101,22 @@ export class VitalService {
   }
 
   nextGen(): void {
-    this.pointer++;
+    this._pointer++;
 
-    if (this.pointer > this.history.length - 1) {
+    if (this._pointer > this.history.length - 1) {
       this.run();
     } else {
-      this.retreiveFromHistory(this.pointer);
+      this.retreiveFromHistory(this._pointer);
     }
-    //TODO del console log
-    console.log("NextGen called. Pointer: " + this.pointer);
   }
 
   previousGen(): void {
-    this.pointer--;
+    this._pointer--;
 
-    if (this.pointer < 0) {
-      this.pointer = 0;
+    if (this._pointer < 0) {
+      this._pointer = 0;
     }
-    this.retreiveFromHistory(this.pointer);
-    //TODO del console log
-    console.log("PrevGen called. Pointer: " + this.pointer);
+    this.retreiveFromHistory(this._pointer);
   }
 
   retreiveFromHistory(index: number): void {
@@ -128,5 +125,9 @@ export class VitalService {
 
   get cells(): Map<string, Cell> {
     return this._cells;
+  }
+
+  get pointer(): number {
+    return this._pointer;
   }
 }
