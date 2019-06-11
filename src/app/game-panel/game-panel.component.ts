@@ -14,10 +14,11 @@ import {VitalService} from '../vital.service';
 })
 
 export class GamePanelComponent implements OnInit {
-  gameSize: number;
 
 
   constructor( private dexServise: DataExchangeService, private vitalService: VitalService) { }
+
+  gameSize: number;
 
   ngOnInit() {
     this.dexServise.currentGameSize.subscribe(gameSize => this.gameSize = gameSize);
@@ -39,14 +40,14 @@ export class GamePanelComponent implements OnInit {
 
       console.log('ID: ' + cell.id + ' Color: ' + cell.color);
       console.log('Neighbours: ' + cell.neighbours.size);
-      console.log("Neighb alive: " + cell.neighboursAlive);
+      console.log('Neighb alive: ' + cell.neighboursAlive);
     } else {
 
       cell.die();
       tableCell.style.backgroundColor = cell.color;
 
       console.log('ID: ' + cell.id + ' Color: ' + cell.color);
-      console.log("Neighb alive: " + cell.neighboursAlive);
+      console.log('Neighb alive: ' + cell.neighboursAlive);
     }
   }
 
@@ -56,12 +57,20 @@ export class GamePanelComponent implements OnInit {
     console.log('Refresh started');
     const cells = this.vitalService.cells;
     cells.forEach((cell: Cell, key: string) => {
+      // refresh launches before new size game grid was rendered
+      // so if we resize our game up at the moment refresh starts
+      // there're no some td elements with proper id
+      // and attempt to get style property of absent element causes error
+      // so here decided just to skip this error because it doesn't influence the execution flow
       const td = document.getElementById(cell.id);
-      td.style.backgroundColor = cell.color;
-      if (cell.color !== '') {
+      try {
+        td.style.backgroundColor = cell.color;
+      } catch (e) {
+      }
+    if (cell.color !== '') {
         console.log('ID: ' + cell.id + ' Color: ' + cell.color);
      }
-    });
+    })
     console.log('Refresh finished');
   }
 }
