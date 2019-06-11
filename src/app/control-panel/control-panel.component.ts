@@ -22,7 +22,8 @@ export class ControlPanelComponent implements OnInit {
 
   ngOnInit() {
     this.dexServise.currentGameSize.subscribe(gameSize => this.gameSize = gameSize);
-    this.speed = 10;
+    this.previousGameSize = this.gameSize;
+    this.speed = 1;
     this.getSpeedLabel();
   }
 
@@ -52,6 +53,7 @@ export class ControlPanelComponent implements OnInit {
     this.dexServise.changeGameSize(this.gameSize);
     this.vitalService.reboot(this.gameSize);
     this.isApplyBtnDisabled = true;
+    this.gamePanel.refresh();
   }
 
   enableApplyBtn() {

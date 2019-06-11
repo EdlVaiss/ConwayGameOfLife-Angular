@@ -12,7 +12,8 @@
     <h3>Game Size: {{gameSize}}</h3>
     <p-slider [(ngModel)]="gameSize" [min]="10" [max]="40" [style]="{'width':'14em'}" (onChange)="enableApplyBtn()"></p-slider>
     <div class = "applyBtn">
-      <button pButton type="button" label="Apply" class="ui-button-raised ui-button-rounded" [disabled]="isApplyBtnDisabled || gameSize == previousGameSize" (click) = "resizeGame()"></button>
+      <button pButton type="button" [label]="(isApplyBtnDisabled || gameSize == previousGameSize) ? 'Clear':'Apply'" class="ui-button-raised ui-button-rounded" (click) = "resizeGame()"></button>
+
     </div>
   </div>
 </div>
