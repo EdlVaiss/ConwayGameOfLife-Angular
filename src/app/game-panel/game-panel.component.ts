@@ -56,21 +56,23 @@ export class GamePanelComponent implements OnInit {
   refresh(): void {
     console.log('Refresh started');
     const cells = this.vitalService.cells;
-    cells.forEach((cell: Cell, key: string) => {
-      // refresh launches before new size game grid was rendered
-      // so if we resize our game up at the moment refresh starts
-      // there're no some td elements with proper id
-      // and attempt to get style property of absent element causes error
-      // so here decided just to skip this error because it doesn't influence the execution flow
-      const td = document.getElementById(cell.id);
-      try {
-        td.style.backgroundColor = cell.color;
-      } catch (e) {
-      }
-    if (cell.color !== '') {
-        console.log('ID: ' + cell.id + ' Color: ' + cell.color);
-     }
-    })
+    if (cells !== undefined) {
+      cells.forEach((cell: Cell, key: string) => {
+        // refresh launches before new size game grid was rendered
+        // so if we resize our game up at the moment refresh starts
+        // there're no some td elements with proper id
+        // and attempt to get style property of absent element causes error
+        // so here decided just to skip this error because it doesn't influence the execution flow
+        const td = document.getElementById(cell.id);
+        try {
+          td.style.backgroundColor = cell.color;
+        } catch (e) {
+        }
+        if (cell.color !== '') {
+          console.log('ID: ' + cell.id + ' Color: ' + cell.color);
+        }
+      })
+    }
     console.log('Refresh finished');
   }
 }
