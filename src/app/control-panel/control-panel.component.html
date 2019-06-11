@@ -1,6 +1,6 @@
 <div class = "controlsContainer">
-
-  <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "previousGen()"></button>
+<h2>Generation #{{currentGen}}</h2>
+  <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" [disabled]="currentGen == 0" (click) = "previousGen()"></button>
   <button *ngIf="isStartBtnEnabled" pButton type="button" label="start" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "start()"></button>
   <button *ngIf="!isStartBtnEnabled" pButton type="button" label="stop" class="ui-button-warning ui-button-raised ui-button-rounded" (click) = "stop()"></button>
   <button pButton type="button" label="next" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
