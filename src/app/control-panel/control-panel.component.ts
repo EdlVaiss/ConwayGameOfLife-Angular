@@ -39,7 +39,7 @@ export class ControlPanelComponent implements OnInit {
 
   start(): void {
     this.isStartBtnEnabled = false;
-    this.timerId = setInterval(() => { this.nextGen(); }, 10000/Math.pow(10,this.speed/10));
+    this.timerId = setInterval(() => { this.nextGen(); }, 10000/Math.pow(10,this.speed));
   }
 
   stop(): void {
@@ -60,15 +60,15 @@ export class ControlPanelComponent implements OnInit {
 
   getSpeedLabel() {
     switch (this.speed) {
-      case 10: {
+      case 1: {
         this.speedLabel = 'low';
         break;
       }
-      case 20: {
+      case 2: {
         this.speedLabel = 'med';
         break;
       }
-      case 30: {
+      case 3: {
         this.speedLabel = 'high';
         break;
       }
