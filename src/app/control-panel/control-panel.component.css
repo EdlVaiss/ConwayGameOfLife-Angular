@@ -4,7 +4,20 @@
 .applyBtn {
   margin: 10px 3px;
 }
+
 h3 {
   color: #007ad9;
+}
+
+h5 {
+  display: inline;
+}
+
+.goToInput {
+  width: 5em;
+}
+
+.controlButtons {
+  margin-top: 1em;
 }
 

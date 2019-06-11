@@ -1,9 +1,15 @@
 <div class = "controlsContainer">
 <h2>Generation #{{currentGen}}</h2>
-  <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" [disabled]="currentGen == 0" (click) = "previousGen()"></button>
-  <button *ngIf="isStartBtnEnabled" pButton type="button" label="start" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "start()"></button>
-  <button *ngIf="!isStartBtnEnabled" pButton type="button" label="stop" class="ui-button-warning ui-button-raised ui-button-rounded" (click) = "stop()"></button>
-  <button pButton type="button" label="next" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
+ <div calss = "goTo">
+  <h5>Go to GEN# </h5>
+  <input class="goToInput" type="text">
+ </div>
+  <div class="controlButtons">
+    <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" [disabled]="currentGen == 0" (click) = "previousGen()"></button>
+    <button *ngIf="isStartBtnEnabled" pButton type="button" label="start" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "start()"></button>
+    <button *ngIf="!isStartBtnEnabled" pButton type="button" label="stop" class="ui-button-warning ui-button-raised ui-button-rounded" (click) = "stop()"></button>
+    <button pButton type="button" label="next" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "nextGen()"></button>
+  </div>
   <h3>Speed: {{speedLabel}}</h3>
 
   <p-slider class = "speedSlider" [(ngModel)]="speed" [min]="1" [max]="3" [style]="{'width':'14em'}" (onChange)="getSpeedLabel()"></p-slider>
