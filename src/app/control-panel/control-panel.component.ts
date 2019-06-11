@@ -10,13 +10,14 @@ import {DataExchangeService} from '../data-exchange.service';
 })
 export class ControlPanelComponent implements OnInit {
 
-  gameSize: number;
-  speed: number;
-  speedLabel: string;
-  isApplyBtnDisabled = true;
-  isStartBtnEnabled = true;
+  private gameSize: number;
+  private speed: number;
+  private speedLabel: string;
+  private isApplyBtnDisabled = true;
+  private isStartBtnEnabled = true;
   private previousGameSize: number;
   private timerId: number;
+  private currentGen: number;
 
   constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
@@ -24,6 +25,7 @@ export class ControlPanelComponent implements OnInit {
     this.dexServise.currentGameSize.subscribe(gameSize => this.gameSize = gameSize);
     this.previousGameSize = this.gameSize;
     this.speed = 1;
+    this.currentGen = 0;
     this.getSpeedLabel();
   }
 
@@ -31,11 +33,13 @@ export class ControlPanelComponent implements OnInit {
   nextGen(): void {
     this.vitalService.nextGen();
     this.gamePanel.refresh();
+    this.currentGen = this.vitalService.pointer;
   }
 
   previousGen(): void {
     this.vitalService.previousGen();
     this.gamePanel.refresh();
+    this.currentGen = this.vitalService.pointer;
   }
 
   start(): void {
@@ -54,6 +58,7 @@ export class ControlPanelComponent implements OnInit {
     this.vitalService.reboot(this.gameSize);
     this.isApplyBtnDisabled = true;
     this.gamePanel.refresh();
+    this.currentGen = this.vitalService.pointer;
   }
 
   enableApplyBtn() {
