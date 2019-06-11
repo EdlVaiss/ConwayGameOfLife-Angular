@@ -44,7 +44,7 @@ export class ControlPanelComponent implements OnInit {
 
   start(): void {
     this.isStartBtnEnabled = false;
-    this.timerId = setInterval(() => { this.nextGen(); }, 10000/Math.pow(10,this.speed));
+    this.timerId = setInterval(() => { this.nextGen(); }, 10000 / Math.pow(10, this.speed));
   }
 
   stop(): void {
@@ -83,5 +83,11 @@ export class ControlPanelComponent implements OnInit {
         this.speedLabel = 'low';
       }
     }
+  }
+
+  goToGen(index: number): void {
+    this.vitalService.goToGen(index);
+    this.gamePanel.refresh();
+    this.currentGen = this.vitalService.pointer;
   }
 }

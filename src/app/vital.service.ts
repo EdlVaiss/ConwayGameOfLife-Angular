@@ -119,6 +119,11 @@ export class VitalService {
     this.retreiveFromHistory(this._pointer);
   }
 
+  goToGen(index: number): void {
+    this._pointer = index;
+    this.retreiveFromHistory(this._pointer);
+  }
+
   retreiveFromHistory(index: number): void {
     this._cells = this.history[index];
   }
