@@ -27,7 +27,7 @@ h5 {
   margin-top: 1em;
 }
 
-.motionControls, .sizeControls {
+.motionControls, .sizeControls, .stats {
   display: inline-block;
   margin: 0.5em 2em;
   vertical-align: top;

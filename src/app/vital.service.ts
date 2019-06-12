@@ -134,6 +134,32 @@ export class VitalService {
     this._cells = this.history[index];
   }
 
+  saveGame(): void {
+    const str = JSON.stringify(Array.from(this._cells.entries()));
+    console.log("Stringified history: " + str);
+  }
+
+  loadGame(): void {
+    const str = JSON.stringify(Array.from(this._cells.entries()));
+    this._cells = new Map(JSON.parse(str));
+    console.log("Parsed game loaded");
+  }
+
+  replacer() {
+    function f(key, value) {
+
+      const originalObject = value;
+      if (originalObject instanceof Map) {
+        return {
+          dataType: 'Map',
+          value: Array.from(originalObject.entries()), // or with spread: value: [...originalObject]
+        };
+      } else {
+        return value;
+      }
+    }
+  }
+
   get cells(): Map<string, Cell> {
     return this._cells;
   }

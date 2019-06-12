@@ -54,7 +54,7 @@ export class ControlPanelComponent implements OnInit {
     this.isStartBtnEnabled = true;
   }
 
-  resizeGame() {
+  resizeGame(): void {
     this.previousGameSize = this.gameSize;
     this.dexServise.changeGameSize(this.gameSize);
     this.vitalService.reboot(this.gameSize);
@@ -63,11 +63,11 @@ export class ControlPanelComponent implements OnInit {
     this.currentGen = this.vitalService.pointer;
   }
 
-  enableApplyBtn() {
+  enableApplyBtn(): void {
       this.isApplyBtnDisabled = false;
   }
 
-  getSpeedLabel() {
+  getSpeedLabel(): void {
     switch (this.speed) {
       case 1: {
         this.speedLabel = 'low';
@@ -92,5 +92,13 @@ export class ControlPanelComponent implements OnInit {
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
     this.goToGenNum = this.currentGen;
+  }
+
+  saveGame(): void {
+    this.vitalService.saveGame();
+  }
+
+  loadGame(): void {
+    this.vitalService.loadGame();
   }
 }
