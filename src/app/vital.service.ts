@@ -120,7 +120,13 @@ export class VitalService {
   }
 
   goToGen(index: number): void {
-    this._pointer = index;
+    if (index < 0) {
+      this._pointer = 0;
+    } else if (index > this.history.length - 1) {
+      this._pointer = this.history.length - 1;
+    } else {
+      this._pointer = index;
+    }
     this.retreiveFromHistory(this._pointer);
   }
 
