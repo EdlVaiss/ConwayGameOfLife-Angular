@@ -2,7 +2,8 @@
 <h2>Generation #{{currentGen}}</h2>
  <div calss = "goTo">
   <h5>Go to GEN# </h5>
-  <input class="goToInput" type="text">
+  <input class="goToInput" [(ngModel)]="goToGenNum" type="number" (keyup.enter)="goToGen()">
+   <button pButton type="button" label="Go" class="ui-button-success ui-button-raised ui-button-rounded" (click) = "goToGen()"></button>
  </div>
   <div class="controlButtons">
     <button pButton type="button" label="prev" class="ui-button-success ui-button-raised ui-button-rounded" [disabled]="currentGen == 0" (click) = "previousGen()"></button>
