@@ -18,14 +18,16 @@ export class ControlPanelComponent implements OnInit {
   private previousGameSize: number;
   private timerId: number;
   private currentGen: number;
+  private goToGenNum: number;
 
   constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
   ngOnInit() {
     this.dexServise.currentGameSize.subscribe(gameSize => this.gameSize = gameSize);
     this.previousGameSize = this.gameSize;
-    this.speed = 1;
+    this.speed = 2;
     this.currentGen = 0;
+    this.goToGenNum = 0;
     this.getSpeedLabel();
   }
 
@@ -85,9 +87,10 @@ export class ControlPanelComponent implements OnInit {
     }
   }
 
-  goToGen(index: number): void {
-    this.vitalService.goToGen(index);
+  goToGen(): void {
+    this.vitalService.goToGen(this.goToGenNum);
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
+    this.goToGenNum = this.currentGen;
   }
 }
