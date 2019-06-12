@@ -1,5 +1,9 @@
 <div class = "controlsContainer">
+
+
 <h2>Generation #{{currentGen}}</h2>
+
+  <div class="motionControls">
  <div calss = "goTo">
   <h5>Go to GEN# </h5>
   <input class="goToInput" [(ngModel)]="goToGenNum" type="number" (keyup.enter)="goToGen()">
@@ -15,7 +19,9 @@
 
   <p-slider class = "speedSlider" [(ngModel)]="speed" [min]="1" [max]="3" [style]="{'width':'14em'}" (onChange)="getSpeedLabel()"></p-slider>
 
-  <div>
+  </div>
+
+  <div class="sizeControls">
     <h3>Game Size: {{gameSize}}</h3>
     <p-slider [(ngModel)]="gameSize" [min]="10" [max]="40" [style]="{'width':'14em'}" (onChange)="enableApplyBtn()"></p-slider>
     <div class = "applyBtn">

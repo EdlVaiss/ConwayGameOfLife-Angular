@@ -1,4 +1,4 @@
-.controlsContainer {
+.controlsContainer div{
 
 }
 .applyBtn {
@@ -7,6 +7,11 @@
 
 h3 {
   color: #007ad9;
+
+}
+
+.sizeControls h3 {
+  margin-top: 0em;
 }
 
 h5 {
@@ -22,3 +27,8 @@ h5 {
   margin-top: 1em;
 }
 
+.motionControls, .sizeControls {
+  display: inline-block;
+  margin: 0.5em 2em;
+  vertical-align: top;
+}
