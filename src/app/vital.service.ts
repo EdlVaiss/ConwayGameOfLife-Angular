@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Cell} from './cell';
 import * as cloneDeep from 'lodash/cloneDeep';
-import {tryCatch} from 'rxjs/internal-compatibility';
+import {SaveLoadService} from './save-load.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class VitalService {
   private history: Array<Map<string, Cell>>;
   private _pointer: number;
 
-  constructor() {
+  constructor(private saveLoadService: SaveLoadService) {
     this._cells = new Map<string, Cell>();
     this.history = [];
     this._pointer = 0;
@@ -135,29 +135,12 @@ export class VitalService {
   }
 
   saveGame(): void {
-    const str = JSON.stringify(Array.from(this._cells.entries()));
-    console.log("Stringified history: " + str);
+    this.saveLoadService.save(this.history);
   }
 
   loadGame(): void {
-    const str = JSON.stringify(Array.from(this._cells.entries()));
-    this._cells = new Map(JSON.parse(str));
-    console.log("Parsed game loaded");
-  }
-
-  replacer() {
-    function f(key, value) {
-
-      const originalObject = value;
-      if (originalObject instanceof Map) {
-        return {
-          dataType: 'Map',
-          value: Array.from(originalObject.entries()), // or with spread: value: [...originalObject]
-        };
-      } else {
-        return value;
-      }
-    }
+    this.saveLoadService.load();
+    this.goToGen(0);
   }
 
   get cells(): Map<string, Cell> {

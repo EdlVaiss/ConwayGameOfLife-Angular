@@ -100,5 +100,7 @@ export class ControlPanelComponent implements OnInit {
 
   loadGame(): void {
     this.vitalService.loadGame();
+    this.gamePanel.refresh();
+    this.currentGen = this.vitalService.pointer;
   }
 }
