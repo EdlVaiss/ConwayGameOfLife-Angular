@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Cell} from './cell';
-
+import {saveAs} from 'file-saver/dist/FileSaver';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +15,13 @@ export class SaveLoadService {
     data.forEach((entry) => {buff.push(JSON.stringify(Array.from(entry.entries()))); });
 
     this.str = JSON.stringify(buff);
+
+    const blob = new Blob([this.str], {type:'application/json'})
+    saveAs(blob, 'conway.json');
+    console.log('Game saved successfully!');
   }
 
   load(): Array<Map<string, Cell>> {
-
     const cellsArray: Array<Map<string, Cell>> = [];
     const buff: Array<string> = JSON.parse(this.str);
     buff.forEach((entry => {cellsArray.push(new Map(JSON.parse(entry))); }));
