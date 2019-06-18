@@ -120,7 +120,7 @@ export class VitalService {
   }
 
   goToGen(index: number): void {
-    if (index < 0) {
+    if (index <= 0) {
       this._pointer = 0;
     } else if (index > this.history.length - 1) {
       this._pointer = this.history.length - 1;
@@ -138,8 +138,9 @@ export class VitalService {
     this.saveLoadService.save(this.history);
   }
 
-  loadGame(): void {
-    this.saveLoadService.load();
+  loadGame(file: File): void {
+    this.saveLoadService.load(file);
+    this.history = this.saveLoadService.cells;
     this.goToGen(0);
   }
 

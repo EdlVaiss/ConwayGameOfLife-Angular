@@ -98,8 +98,8 @@ export class ControlPanelComponent implements OnInit {
     this.vitalService.saveGame();
   }
 
-  loadGame(): void {
-    this.vitalService.loadGame();
+  loadGame(file: File): void {
+    this.vitalService.loadGame(file);
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
   }
