@@ -26,7 +26,7 @@ export class SaveLoadService {
   }
 
   load(file: File): void {
-
+    this._cells = [];
     const reader = new FileReader();
 
     reader.onloadend = () => {
