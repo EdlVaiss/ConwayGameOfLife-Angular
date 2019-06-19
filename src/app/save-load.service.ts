@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Cell} from './cell';
 import {saveAs} from 'file-saver/dist/FileSaver';
-import * as cloneDeep from 'lodash/cloneDeep';
 
 @Injectable({
   providedIn: 'root'
@@ -29,20 +28,22 @@ export class SaveLoadService {
   load(file: File): void {
 
     const reader = new FileReader();
-    const self = this;
-    reader.onloadend = () => {const content = reader.result;
-                              const cellsArray: Array<Map<string, Cell>> = [];
-                              if (typeof  content === 'string') {
-                                const buff: Array<string> = JSON.parse(content);
-                                buff.forEach((entry) => {
-                                  cellsArray.push(new Map(JSON.parse(entry)));
-                                });
-                                self._cells = cloneDeep(cellsArray);
-                                console.log('Content: ' + content);
-                                console.log('Game loaded');
-                              }
-                            };
+
+    reader.onloadend = () => {
+      const content = reader.result;
+
+      if (typeof  content === 'string') {
+        const buff: Array<string> = JSON.parse(content);
+        buff.forEach((entry) => {
+          this._cells.push(new Map(JSON.parse(entry)));
+        });
+
+        console.log(this._cells);
+        console.log('Game loaded');
+      }
+    };
 
     reader.readAsText(file);
+
    }
 }
