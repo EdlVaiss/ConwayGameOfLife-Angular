@@ -98,9 +98,11 @@ export class ControlPanelComponent implements OnInit {
     this.vitalService.saveGame();
   }
 
-  loadGame(file: File): void {
-    this.vitalService.loadGame(file);
+  async loadGame(file: File) {
+    console.log('controlComp loadGame() started');
+    await this.vitalService.loadGame(file);
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
+    console.log('controlComp loadGame() finished');
   }
 }

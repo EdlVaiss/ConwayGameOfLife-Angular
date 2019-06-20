@@ -128,6 +128,8 @@ export class VitalService {
       this._pointer = index;
     }
     this.retreiveFromHistory(this._pointer);
+    console.log('vitalServ goToGen() cells');
+    console.log(this._cells);
   }
 
   retreiveFromHistory(index: number): void {
@@ -138,10 +140,17 @@ export class VitalService {
     this.saveLoadService.save(this.history);
   }
 
-  loadGame(file: File): void {
-    this.saveLoadService.load(file);
+  loadGame(file: File): Promise<any> {
+    console.log('vitalServ loadGame() started');
+    return new Promise(async (resolve) => {
+    await this.saveLoadService.load(file);
     this.history = this.saveLoadService.cells;
+      console.log('vitalServ history');
+      console.log(this.history);
     this.goToGen(0);
+      console.log('vitalServ loadGame() finished');
+    resolve();
+    });
   }
 
   get cells(): Map<string, Cell> {
