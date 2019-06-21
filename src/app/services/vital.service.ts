@@ -11,12 +11,12 @@ import {Game} from '../model/game';
 export class VitalService {
 
   private _gameState: GameState;
-  private history: Array<GameState>;
+  private game: Game;
   private _pointer: number;
 
   constructor(private saveLoadService: SaveLoadService) {
     this._gameState = new GameState();
-    this.history = [];
+    //this.game = new Game();
     this._pointer = 0;
   }
 
@@ -36,12 +36,12 @@ export class VitalService {
     this._gameState = new GameState();
   }
 
-  private dropHistory(): void {
-    this.history = [];
+  private dropGame(fieldSize: number): void {
+    this.game = new Game(fieldSize);
   }
 
   private pushToHistory(): void {
-   this.history[this._pointer - 1] = cloneDeep(this._gameState);
+   this.game.history[this._pointer - 1] = cloneDeep(this._gameState);
   }
 
   private populate(gameSize: number): void {
@@ -97,7 +97,7 @@ export class VitalService {
   reboot(gameSize: number): void {
     this._pointer = 0;
     this.dropGameState();
-    this.dropHistory();
+    this.dropGame(gameSize);
     this.populate(gameSize);
     this.setNeighbours(gameSize);
   }
@@ -105,7 +105,7 @@ export class VitalService {
   nextGen(): void {
     this._pointer++;
 
-    if (this._pointer > this.history.length - 1) {
+    if (this._pointer > this.game.history.length - 1) {
       this.run();
     } else {
       this.retreiveFromHistory(this._pointer);
@@ -124,8 +124,8 @@ export class VitalService {
   goToGen(index: number): void {
     if (index <= 0) {
       this._pointer = 0;
-    } else if (index > this.history.length - 1) {
-      this._pointer = this.history.length - 1;
+    } else if (index > this.game.history.length - 1) {
+      this._pointer = this.game.history.length - 1;
     } else {
       this._pointer = index;
     }
@@ -135,20 +135,20 @@ export class VitalService {
   }
 
   retreiveFromHistory(index: number): void {
-    this._gameState = this.history[index];
+    this._gameState = this.game.history[index];
   }
 
   saveGame(): void {
-   // this.saveLoadService.save(this.history);
+   // this.saveLoadService.save(this.game);
   }
 
   loadGame(file: File): Promise<any> {
     console.log('vitalServ loadGame() started');
     return new Promise(async (resolve) => {
     await this.saveLoadService.load(file);
-   // this.history = this.saveLoadService.cells;
-      console.log('vitalServ history');
-      console.log(this.history);
+   // this.game = this.saveLoadService.cells;
+      console.log('vitalServ game');
+      console.log(this.game);
     this.goToGen(0);
       console.log('vitalServ loadGame() finished');
     resolve();
