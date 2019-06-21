@@ -20,6 +20,11 @@ export class Game {
     this._size = value;
   }
 
+  constructor(size: number) {
+    this._size = size;
+    this._cells = new Map<string, Cell>();
+  }
+
   constructor(size: number, cells: Map<string, Cell>) {
     this._size = size;
     this._cells = cloneDeep(cells);

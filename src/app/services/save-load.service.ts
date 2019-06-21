@@ -28,7 +28,7 @@ export class SaveLoadService {
 
   load(file: File): Promise<any> {
     console.log('saveLoadServ load() started');
-   return new Promise(async (resolve) => {
+    return new Promise(async (resolve) => {
     this._cells = [];
     const content = await this.getFileContent(file);
     if (typeof  content === 'string') {
@@ -36,7 +36,7 @@ export class SaveLoadService {
       const buff: Array<string> = JSON.parse(content);
 
       buff.forEach((entry) => {
-        const parsedEntry: Map<string, Cell> =  new Map(JSON.parse(entry, (k, v) => {console.log(k + ' : ' + v); }));
+        const parsedEntry: Map<string, Cell> =  new Map(JSON.parse(entry));
         console.log('parsedEntry');
         console.log(parsedEntry);
         this._cells.push(new Map(JSON.parse(entry) ));
