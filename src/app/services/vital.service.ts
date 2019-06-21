@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Cell} from './cell';
+import {Cell} from '../model/cell';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {SaveLoadService} from './save-load.service';
 
