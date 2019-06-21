@@ -139,14 +139,14 @@ export class VitalService {
   }
 
   saveGame(): void {
-   // this.saveLoadService.save(this.game);
+    this.saveLoadService.save(this.game);
   }
 
   loadGame(file: File): Promise<any> {
     console.log('vitalServ loadGame() started');
     return new Promise(async (resolve) => {
     await this.saveLoadService.load(file);
-   // this.game = this.saveLoadService.cells;
+    this.game = this.saveLoadService.loadedGame;
       console.log('vitalServ game');
       console.log(this.game);
     this.goToGen(0);
