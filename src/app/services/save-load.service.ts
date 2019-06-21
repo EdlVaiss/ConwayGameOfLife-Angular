@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import {Cell} from '../model/cell';
 import {saveAs} from 'file-saver/dist/FileSaver';
+import {SeDesService} from './se-des.service';
+import {Game} from '../model/game';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SaveLoadService {
-  get cells(): Array<Map<string, Cell>> {
-    return this._cells;
+  get loadedGame(): Game {
+    return this._loadedGame;
   }
 
-  private _cells: Array<Map<string, Cell>> = [];
+  private _loadedGame: Game;
 
-  constructor() { }
+  constructor(private seDes: SeDesService) { }
 
-  save(data: Array<Map<string, Cell>>): void {
-    const buff: Array<string> = [];
-    data.forEach((entry) => {buff.push(JSON.stringify(Array.from(entry.entries()))); });
+  save(game: Game): void {
 
-    const str = JSON.stringify(buff);
+    const str = this.seDes.serialize(game);
 
     const blob = new Blob([str], {type: 'application/json'});
     saveAs(blob, 'conway.json');
@@ -29,22 +29,10 @@ export class SaveLoadService {
   load(file: File): Promise<any> {
     console.log('saveLoadServ load() started');
     return new Promise(async (resolve) => {
-    this._cells = [];
+
     const content = await this.getFileContent(file);
     if (typeof  content === 'string') {
-      console.log('started parsing');
-      const buff: Array<string> = JSON.parse(content);
-
-      buff.forEach((entry) => {
-        const parsedEntry: Map<string, Cell> =  new Map(JSON.parse(entry));
-        console.log('parsedEntry');
-        console.log(parsedEntry);
-        this._cells.push(new Map(JSON.parse(entry) ));
-        console.log('entry');
-        console.log(entry);
-      });
-      console.log('saveLoadServ cells');
-      console.log(this._cells);
+      this._loadedGame = this.seDes.deserialize(content);
     }
 
     console.log('saveLoadServ load() finished');
