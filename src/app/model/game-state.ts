@@ -20,4 +20,8 @@ export class GameState {
   constructor(cells: Map<string, Cell>) {
     this._cells = cloneDeep(cells);
   }
+
+  toJSON() {
+    return {"_cells" : Array.from(this._cells.values())};
+  }
 }
