@@ -1,33 +1,34 @@
 import {Cell} from './cell';
 import * as cloneDeep from 'lodash/cloneDeep';
+import {GameState} from './game-state';
 
 export class Game {
-  private _size: number;
-  private _cells: Map<string, Cell>;
+  private fieldSize: number;
+  private game: Set<GameState>;
 
-  get cells(): Map<string, Cell> {
-    return this._cells;
+  get game(): Set<GameState> {
+    return this.game;
   }
 
-  set cells(cells: Map<string, Cell>) {
-    this._cells = cloneDeep(cells);
+  set game(game: Set<GameState>) {
+    this.game = cloneDeep(game);
   }
   get size(): number {
-    return this._size;
+    return this.fieldSize;
   }
 
   set size(value: number) {
-    this._size = value;
+    this.fieldSize = value;
   }
 
-  constructor(size: number) {
-    this._size = size;
-    this._cells = new Map<string, Cell>();
+  constructor(fieldSize: number) {
+    this.fieldSize = fieldSize;
+    this.game = new Set<GameState>();
   }
 
-  constructor(size: number, cells: Map<string, Cell>) {
-    this._size = size;
-    this._cells = cloneDeep(cells);
+  constructor(fieldSize: number, game: Set<GameState>) {
+    this.fieldSize = fieldSize;
+    this.game = cloneDeep(game);
   }
 
 }
