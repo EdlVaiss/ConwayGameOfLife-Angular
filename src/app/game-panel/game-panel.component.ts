@@ -30,7 +30,7 @@ export class GamePanelComponent implements OnInit {
   }
 
   toogleCell(event) {
-    const cells = this.vitalService.cells;
+    const cells = this.vitalService.gameState.cells;
     const tableCell = event.currentTarget;
     const cell =  cells.get(tableCell.id);
     if (tableCell.style.backgroundColor === '') {
@@ -55,7 +55,7 @@ export class GamePanelComponent implements OnInit {
 
   refresh(): void {
     console.log('Refresh started');
-    const cells = this.vitalService.cells;
+    const cells = this.vitalService.gameState.cells;
     if (cells !== undefined) {
       cells.forEach((cell: Cell, key: string) => {
         // refresh launches before new size game grid was rendered
@@ -71,7 +71,7 @@ export class GamePanelComponent implements OnInit {
         if (cell.color !== '') {
           console.log('ID: ' + cell.id + ' Color: ' + cell.color);
         }
-      })
+      });
     }
     console.log('Refresh finished');
   }

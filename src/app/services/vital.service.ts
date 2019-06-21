@@ -2,36 +2,38 @@ import { Injectable } from '@angular/core';
 import {Cell} from '../model/cell';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {SaveLoadService} from './save-load.service';
+import {GameState} from '../model/game-state';
+import {Game} from '../model/game';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VitalService {
 
-  private _cells: Map<string, Cell>;
-  private history: Array<Map<string, Cell>>;
+  private _gameState: GameState;
+  private history: Array<GameState>;
   private _pointer: number;
 
   constructor(private saveLoadService: SaveLoadService) {
-    this._cells = new Map<string, Cell>();
+    this._gameState = new GameState();
     this.history = [];
     this._pointer = 0;
   }
 
   private clean(): void {
-    this._cells.forEach((cell: Cell, key: string) =>  {
+    this._gameState.cells.forEach((cell: Cell, key: string) =>  {
       cell.liveOrDie();
     });
   }
 
   private check(): void {
-    this._cells.forEach((cell: Cell, key: string) =>  {
+    this._gameState.cells.forEach((cell: Cell, key: string) =>  {
       cell.checkNeigboursAlive();
     });
   }
 
-  private dropCellsMap(): void {
-    this._cells = new Map();
+  private dropGameState(): void {
+    this._gameState = new GameState();
   }
 
   private dropHistory(): void {
@@ -39,20 +41,20 @@ export class VitalService {
   }
 
   private pushToHistory(): void {
-   this.history[this._pointer - 1] = cloneDeep(this._cells);
+   this.history[this._pointer - 1] = cloneDeep(this._gameState);
   }
 
   private populate(gameSize: number): void {
     for (let i = 0; i < gameSize; i++) {
       for (let j = 0; j < gameSize; j++) {
         const cell = new Cell(i + ':' + j);
-        this._cells.set(cell.id, cell);
+        this._gameState.cells.set(cell.id, cell);
       }
     }
   }
 
   private setNeighbours(gameSize: number): void {
-    this._cells.forEach((cell: Cell, key: string) =>  {
+    this._gameState.cells.forEach((cell: Cell, key: string) =>  {
       const id = cell.id;
       const row = Number(id.split(':')[0]);
       const column = Number(id.split(':')[1]);
@@ -79,7 +81,7 @@ export class VitalService {
 
           // situation i === 0 && j === 0 represents current cell, so we shouldn't push it to neighbours collection
           if (!(i === 0 && j === 0)) {
-            cell.neighbours.set(neighbourID, this._cells.get(neighbourID));
+            cell.neighbours.set(neighbourID, this._gameState.cells.get(neighbourID));
           }
         }
       }
@@ -94,7 +96,7 @@ export class VitalService {
 
   reboot(gameSize: number): void {
     this._pointer = 0;
-    this.dropCellsMap();
+    this.dropGameState();
     this.dropHistory();
     this.populate(gameSize);
     this.setNeighbours(gameSize);
@@ -129,22 +131,22 @@ export class VitalService {
     }
     this.retreiveFromHistory(this._pointer);
     console.log('vitalServ goToGen() cells');
-    console.log(this._cells);
+    console.log(this._gameState);
   }
 
   retreiveFromHistory(index: number): void {
-    this._cells = this.history[index];
+    this._gameState = this.history[index];
   }
 
   saveGame(): void {
-    this.saveLoadService.save(this.history);
+   // this.saveLoadService.save(this.history);
   }
 
   loadGame(file: File): Promise<any> {
     console.log('vitalServ loadGame() started');
     return new Promise(async (resolve) => {
     await this.saveLoadService.load(file);
-    this.history = this.saveLoadService.cells;
+   // this.history = this.saveLoadService.cells;
       console.log('vitalServ history');
       console.log(this.history);
     this.goToGen(0);
@@ -153,8 +155,8 @@ export class VitalService {
     });
   }
 
-  get cells(): Map<string, Cell> {
-    return this._cells;
+  get gameState(): GameState {
+    return this._gameState;
   }
 
   get pointer(): number {
