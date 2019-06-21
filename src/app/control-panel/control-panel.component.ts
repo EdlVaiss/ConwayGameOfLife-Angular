@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {VitalService} from '../vital.service';
+import {VitalService} from '../services/vital.service';
 import {GamePanelComponent} from '../game-panel/game-panel.component';
-import {DataExchangeService} from '../data-exchange.service';
+import {DataExchangeService} from '../services/data-exchange.service';
 
 @Component({
   selector: 'app-control-panel',

@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable} from '@angular/core';
-import {Cell} from '../cell';
-import {DataExchangeService} from '../data-exchange.service';
-import {VitalService} from '../vital.service';
+import {Cell} from '../model/cell';
+import {DataExchangeService} from '../services/data-exchange.service';
+import {VitalService} from '../services/vital.service';
 
 @Component({
   selector: 'app-game-panel',
