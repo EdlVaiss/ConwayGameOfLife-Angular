@@ -57,6 +57,10 @@ export class Cell {
     return this._neighboursAlive;
   }
 
+  set neighboursAlive(value: number) {
+    this._neighboursAlive = value;
+  }
+
   get neighbours(): Map<string, Cell> {
     return this._neighbours;
   }
@@ -103,20 +107,22 @@ export class Cell {
   }
 
   checkNeigboursAlive(): void {
-    let counter = 0;
-    this._neighbours.forEach((cell: Cell, key: string) =>  {
-      if (cell.color !== '') {
-        counter++;
-      }
-    });
-    this._neighboursAlive = counter;
+    if (this._neighbours.size !== 0) {
+      let counter = 0;
+      this._neighbours.forEach((cell: Cell, key: string) => {
+        if (cell.color !== '') {
+          counter++;
+        }
+      });
+      this._neighboursAlive = counter;
+    }
   }
 
   toJSON() {
     if (this.isAlive) {
-      return {"_id" : this._id, "_color" : this._color, "_isAlive" : this._isAlive, "_age" : this._age};
+      return {"_id" : this._id, "_color" : this._color, "_isAlive" : this._isAlive, "_age" : this._age, "_neighboursAlive" : this._neighboursAlive};
     } else {
-      return {"_id" : this._id};
+      return {"_id" : this._id, "_neighboursAlive" : this._neighboursAlive};
     }
   }
 

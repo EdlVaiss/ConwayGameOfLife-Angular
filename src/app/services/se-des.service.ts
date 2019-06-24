@@ -28,6 +28,7 @@ export class SeDesService {
         cell.isAlive = cellObj._isAlive !== undefined ? cellObj._isAlive : false;
         cell.color = cellObj._color !== undefined ? cellObj._color : '';
         cell.age = cellObj._age !== undefined ? parseInt(cellObj._age) : 0;
+        cell.neighboursAlive = cellObj._neighboursAlive !== undefined ? parseInt(cellObj._neighboursAlive) : 0;
 
         gameState.cells.set(cell.id, cell);
       });
