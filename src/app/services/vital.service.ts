@@ -17,7 +17,6 @@ export class VitalService {
 
   constructor(private saveLoadService: SaveLoadService) {
     this._gameState = new GameState();
-    //this.game = new Game();
     this._pointer = 0;
   }
 
@@ -112,8 +111,9 @@ export class VitalService {
         this.setNeighbours(this.game.fieldSize);
       }
       this.run();
+      console.log('Calculated GameState #' + this._pointer);
     } else {
-      console.log('Retreiving from history GameState #' + this.pointer);
+
       this.withinHistory = true;
       this.retreiveFromHistory(this._pointer);
     }
@@ -125,7 +125,7 @@ export class VitalService {
     if (this._pointer < 0) {
       this._pointer = 0;
     }
-    console.log('Retreiving from history GameState #' + this.pointer);
+
     this.retreiveFromHistory(this._pointer);
   }
 
@@ -138,11 +138,10 @@ export class VitalService {
       this._pointer = index;
     }
     this.retreiveFromHistory(this._pointer);
-    console.log('vitalServ goToGen() cells');
-    console.log(this._gameState);
   }
 
   retreiveFromHistory(index: number): void {
+    console.log('Retreiving from history GameState #' + index);
     this._gameState = this.game.history[index];
   }
 
@@ -155,8 +154,6 @@ export class VitalService {
     return new Promise(async (resolve) => {
     await this.saveLoadService.load(file);
     this.game = this.saveLoadService.loadedGame;
-      console.log('vitalServ game');
-      console.log(this.game);
     this.goToGen(0);
       console.log('vitalServ loadGame() finished');
     resolve();
