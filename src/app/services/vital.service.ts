@@ -108,6 +108,7 @@ export class VitalService {
     if (this._pointer > this.game.history.length - 1) {
       this.run();
     } else {
+      console.log('Retreiving from history GameState #' + this.pointer);
       this.retreiveFromHistory(this._pointer);
     }
   }
@@ -118,6 +119,7 @@ export class VitalService {
     if (this._pointer < 0) {
       this._pointer = 0;
     }
+    console.log('Retreiving from history GameState #' + this.pointer);
     this.retreiveFromHistory(this._pointer);
   }
 
