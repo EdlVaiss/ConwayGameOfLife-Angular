@@ -111,4 +111,13 @@ export class Cell {
     });
     this._neighboursAlive = counter;
   }
+
+  toJSON() {
+    if (this.isAlive) {
+      return {"_id" : this._id, "_color" : this._color, "_isAlive" : this._isAlive, "_age" : this._age};
+    } else {
+      return {"_id" : this._id};
+    }
+  }
+
 }

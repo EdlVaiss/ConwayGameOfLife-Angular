@@ -25,9 +25,9 @@ export class SeDesService {
       const gameState = new GameState();
       gameStateObj._cells.forEach((cellObj) => {
         const cell = new Cell(cellObj._id);
-        cell.isAlive = cellObj._isAlive;
-        cell.color = cellObj._color;
-        cell.age = parseInt(cellObj._age);
+        cell.isAlive = cellObj._isAlive !== undefined ? cellObj._isAlive : false;
+        cell.color = cellObj._color !== undefined ? cellObj._color : '';
+        cell.age = cellObj._age !== undefined ? parseInt(cellObj._age) : 0;
 
         gameState.cells.set(cell.id, cell);
       });
