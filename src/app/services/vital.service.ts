@@ -89,8 +89,9 @@ export class VitalService {
   }
 
   run(): void {
-    this.pushToHistory();
     this.check();
+    this.pushToHistory();
+
     this.clean();
   }
 
