@@ -31,7 +31,7 @@
   </div>
   <div class="stats">
     <button pButton type="button" label="Save" class="ui-button-raised ui-button-rounded" (click) = "saveGame()"></button>
-    <button pButton type="button" label="Load" class="ui-button-raised ui-button-rounded" (click) = "loadGame(fileInput.files[0])"></button>
-    <input #fileInput type="file" accept="application/json">
+    <label for="fl" ><span>Load</span></label>
+    <input #fileInput id = "fl" type="file" accept="application/json" style="opacity: 0" (change)="loadGame(fileInput.files[0])">
   </div>
 </div>

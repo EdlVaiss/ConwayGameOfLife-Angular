@@ -32,3 +32,37 @@ h5 {
   margin: 0.5em 2em;
   vertical-align: top;
 }
+
+label {
+  margin: 0;
+  color: #ffffff;
+  background-color: #007ad9;
+  border: 1px solid #007ad9;
+  font-size: 14px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  border-radius: 15px;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  text-decoration: none !important;
+  cursor: pointer;
+  text-align: center;
+  zoom: 1;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.stats label:hover{
+  background-color: #116fbf;
+  color: #ffffff;
+  border-color: #116fbf;
+}
+
+.stats label span {
+  padding: 0.429em 1em;
+  display: block;
+  line-height: normal;
+  box-sizing: border-box;
+}
