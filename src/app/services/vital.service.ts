@@ -13,6 +13,7 @@ export class VitalService {
   private _gameState: GameState;
   private game: Game;
   private _pointer: number;
+  private withinHistory: boolean;
 
   constructor(private saveLoadService: SaveLoadService) {
     this._gameState = new GameState();
@@ -91,7 +92,6 @@ export class VitalService {
   run(): void {
     this.check();
     this.pushToHistory();
-
     this.clean();
   }
 
@@ -107,9 +107,14 @@ export class VitalService {
     this._pointer++;
 
     if (this._pointer > this.game.history.length - 1) {
+      if (this.withinHistory) {
+        this.withinHistory = false;
+        this.setNeighbours(this.game.fieldSize);
+      }
       this.run();
     } else {
       console.log('Retreiving from history GameState #' + this.pointer);
+      this.withinHistory = true;
       this.retreiveFromHistory(this._pointer);
     }
   }
