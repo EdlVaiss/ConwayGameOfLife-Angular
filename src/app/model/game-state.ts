@@ -10,15 +10,11 @@ export class GameState {
   }
 
   set cells(value: Map<string, Cell>) {
-    this._cells = value;
+    this._cells = cloneDeep(value);
   }
 
   constructor() {
     this._cells = new Map<string, Cell>();
-  }
-
-  constructor(cells: Map<string, Cell>) {
-    this._cells = cloneDeep(cells);
   }
 
   toJSON() {

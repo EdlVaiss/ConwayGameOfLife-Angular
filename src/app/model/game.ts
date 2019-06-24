@@ -10,11 +10,6 @@ export class Game {
     this._history = new Array<GameState>();
   }
 
-  constructor(fieldSize: number, history: Array<GameState>) {
-    this._fieldSize = fieldSize;
-    this._history = cloneDeep(history);
-  }
-
   get history(): Array<GameState> {
     return this._history;
   }
