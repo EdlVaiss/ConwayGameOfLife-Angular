@@ -1,9 +1,10 @@
 export class Stats {
-  private _eldestCellAge: number;
-  private _diedAllGame: number;
-  private _bornAllGame: number;
-  private _diedLastGameState: number;
-  private _bornCurrentGameState: number;
+  private _eldestCellAge: number = 0;
+  private _diedAllGame: number = 0;
+  private _bornAllGame: number = 0;
+  private _diedLastGameState: number = 0;
+  private _bornCurrentGameState: number = 0;
+  private _population: number = 0;
 
   constructor() {
 
@@ -57,5 +58,13 @@ export class Stats {
 
   set bornCurrentGameState(value: number) {
     this._bornCurrentGameState = value;
+  }
+
+  get population(): number {
+    return this._population;
+  }
+
+  set population(value: number) {
+    this._population = value;
   }
 }
