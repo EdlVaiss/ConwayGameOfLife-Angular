@@ -35,7 +35,6 @@ export class GamePanelComponent implements OnInit {
     const cell =  cells.get(tableCell.id);
     if (tableCell.style.backgroundColor === '') {
       cell.comeToLife();
-      cell.grow();
       tableCell.style.backgroundColor = cell.color;
 
       console.log('ID: ' + cell.id + ' Color: ' + cell.color);
