@@ -4,6 +4,7 @@ import * as cloneDeep from 'lodash/cloneDeep';
 import {SaveLoadService} from './save-load.service';
 import {GameState} from '../model/game-state';
 import {Game} from '../model/game';
+import {StatsService} from './stats.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class VitalService {
   private _pointer: number;
   private withinHistory: boolean;
 
-  constructor(private saveLoadService: SaveLoadService) {
+  constructor(private saveLoadService: SaveLoadService, private statsService: StatsService) {
     this._gameState = new GameState();
     this._pointer = 0;
   }
@@ -29,6 +30,7 @@ export class VitalService {
   private check(): void {
     this._gameState.cells.forEach((cell: Cell, key: string) =>  {
       cell.checkNeigboursAlive();
+      this.statsService.process(cell);
     });
   }
 
