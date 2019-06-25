@@ -28,10 +28,18 @@ export class VitalService {
   }
 
   private check(): void {
+    this.statsService.clearCurrentStateStats();
     this._gameState.cells.forEach((cell: Cell, key: string) =>  {
       cell.checkNeigboursAlive();
       this.statsService.process(cell);
     });
+
+    console.log('Born All Game: ' + this.statsService.stats.bornAllGame);
+    console.log('Born Prev State: ' + this.statsService.stats.bornCurrentGameState);
+    console.log('Population Prev State: ' + this.statsService.stats.population);
+    console.log('Died All Game: ' + this.statsService.stats.diedAllGame);
+    console.log('Died Prev State: ' + this.statsService.stats.diedLastGameState);
+    console.log('Eldest cell age: ' + this.statsService.stats.eldestCellAge);
   }
 
   private dropGameState(): void {
@@ -98,6 +106,7 @@ export class VitalService {
 
   reboot(gameSize: number): void {
     this._pointer = 0;
+    this.statsService.dropStats();
     this.dropGameState();
     this.dropGame(gameSize);
     this.populate(gameSize);
