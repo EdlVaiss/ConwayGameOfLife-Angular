@@ -9,12 +9,14 @@ export class Stats {
 
   }
 
-  constructor(statsObj: Stats) {
-    this._eldestCellAge = statsObj.eldestCellAge;
-    this._diedAllGame = statsObj.diedAllGame;
-    this._bornAllGame = statsObj.bornAllGame;
-    this._diedLastGameState = statsObj.diedLastGameState;
-    this._bornCurrentGameState = statsObj.bornCurrentGameState;
+  clone(statsObj: Stats): Stats {
+    const stats = new Stats();
+    stats.eldestCellAge = statsObj.eldestCellAge;
+    stats.diedAllGame = statsObj.diedAllGame;
+    stats.bornAllGame = statsObj.bornAllGame;
+    stats.diedLastGameState = statsObj.diedLastGameState;
+    stats.bornCurrentGameState = statsObj.bornCurrentGameState;
+    return stats;
   }
 
   get eldestCellAge(): number {
