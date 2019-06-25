@@ -13,6 +13,10 @@ private _stats: Stats;
     this._stats = new Stats();
   }
 
+  dropStats(): void {
+    this._stats = new Stats();
+  }
+
   clearCurrentStateStats(): void {
     this._stats.diedLastGameState = 0;
     this._stats.population = 0;
