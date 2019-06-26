@@ -4,7 +4,9 @@ export class Stats {
   private _bornAllGame: number = 0;
   private _diedLastGameState: number = 0;
   private _bornCurrentGameState: number = 0;
+  private _bornLastGameState: number = 0;
   private _population: number = 0;
+  private _currentPopulation: number = 0;
 
   constructor() {
 
@@ -17,6 +19,7 @@ export class Stats {
     stats.bornAllGame = statsObj.bornAllGame;
     stats.diedLastGameState = statsObj.diedLastGameState;
     stats.bornCurrentGameState = statsObj.bornCurrentGameState;
+    stats.bornLastGameState = statsObj.bornLastGameState;
     return stats;
   }
 
@@ -60,11 +63,27 @@ export class Stats {
     this._bornCurrentGameState = value;
   }
 
+  get bornLastGameState(): number {
+    return this._bornLastGameState;
+  }
+
+  set bornLastGameState(value: number) {
+    this._bornLastGameState = value;
+  }
+
   get population(): number {
     return this._population;
   }
 
   set population(value: number) {
     this._population = value;
+  }
+
+  get currentPopulation(): number {
+    return this._population - this.diedLastGameState + this.bornCurrentGameState;
+  }
+
+  set currentPopulation(value: number) {
+    this._currentPopulation = value;
   }
 }
