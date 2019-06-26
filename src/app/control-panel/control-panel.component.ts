@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {VitalService} from '../services/vital.service';
 import {GamePanelComponent} from '../game-panel/game-panel.component';
 import {DataExchangeService} from '../services/data-exchange.service';
+import {Stats} from '../model/stats';
 
 @Component({
   selector: 'app-control-panel',
@@ -19,6 +20,7 @@ export class ControlPanelComponent implements OnInit {
   private timerId: number;
   private currentGen: number;
   private goToGenNum: number;
+  private stats: Stats;
 
   constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
@@ -29,17 +31,20 @@ export class ControlPanelComponent implements OnInit {
     this.currentGen = 0;
     this.goToGenNum = 0;
     this.getSpeedLabel();
+    this.stats = new Stats();
   }
 
 
   nextGen(): void {
     this.vitalService.nextGen();
+    this.stats = this.vitalService.gameState.stats;
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
   }
 
   previousGen(): void {
     this.vitalService.previousGen();
+    this.stats = this.vitalService.gameState.stats;
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
   }
@@ -55,6 +60,7 @@ export class ControlPanelComponent implements OnInit {
   }
 
   resizeGame(): void {
+    this.stats = new Stats();
     this.previousGameSize = this.gameSize;
     this.dexServise.changeGameSize(this.gameSize);
     this.vitalService.reboot(this.gameSize);
@@ -82,13 +88,14 @@ export class ControlPanelComponent implements OnInit {
         break;
       }
       default: {
-        this.speedLabel = 'low';
+        this.speedLabel = 'med';
       }
     }
   }
 
   goToGen(): void {
     this.vitalService.goToGen(this.goToGenNum);
+    this.stats = this.vitalService.gameState.stats;
     this.gamePanel.refresh();
     this.currentGen = this.vitalService.pointer;
     this.goToGenNum = this.currentGen;
