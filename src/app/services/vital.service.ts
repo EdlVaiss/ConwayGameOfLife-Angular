@@ -29,14 +29,7 @@ export class VitalService {
       cell.liveOrDie();
     });
 
-    console.log('Born All Game: ' + this.statsService.stats.bornAllGame);
-    console.log('Born Prev State: ' + this.statsService.stats.bornLastGameState);
-    console.log('Born Current State: ' + this.statsService.stats.bornCurrentGameState);
-    console.log('Population Prev State: ' + this.statsService.stats.population);
-    console.log('Population Current State: ' + this.statsService.stats.currentPopulation);
-    console.log('Died All Game: ' + this.statsService.stats.diedAllGame);
-    console.log('Died Prev State: ' + this.statsService.stats.diedLastGameState);
-    console.log('Eldest cell age: ' + this.statsService.stats.eldestCellAge);
+    this._gameState.stats = this.statsService.stats;
   }
 
   private check(): void {
