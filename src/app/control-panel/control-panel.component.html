@@ -30,6 +30,16 @@
     </div>
   </div>
   <div class="stats">
+    <div>
+      <h6>Cells born: {{stats.bornAllGame}}</h6>
+      <h6>Born Prev State: {{stats.bornLastGameState}}</h6>
+      <h6>Born Current State: {{stats.bornCurrentGameState}}</h6>
+      <h6>Population Prev State: {{stats.population}}</h6>
+      <h6>Population Current State: {{stats.currentPopulation}}</h6>
+      <h6>Died All Game: {{stats.diedAllGame}}</h6>
+      <h6>Died Prev State: {{stats.diedLastGameState}}</h6>
+      <h6>Eldest cell age: {{stats.eldestCellAge}}</h6>
+    </div>
     <button pButton type="button" label="Save" class="ui-button-raised ui-button-rounded" (click) = "saveGame()"></button>
     <label for="fl" ><span>Load</span></label>
     <input #fileInput id = "fl" type="file" accept="application/json" style="opacity: 0" (change)="loadGame(fileInput.files[0])">
