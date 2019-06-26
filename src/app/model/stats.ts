@@ -12,14 +12,16 @@ export class Stats {
 
   }
 
-  clone(statsObj: Stats): Stats {
+  clone(): Stats {
     const stats = new Stats();
-    stats.eldestCellAge = statsObj.eldestCellAge;
-    stats.diedAllGame = statsObj.diedAllGame;
-    stats.bornAllGame = statsObj.bornAllGame;
-    stats.diedLastGameState = statsObj.diedLastGameState;
-    stats.bornCurrentGameState = statsObj.bornCurrentGameState;
-    stats.bornLastGameState = statsObj.bornLastGameState;
+    stats.eldestCellAge = this._eldestCellAge;
+    stats.diedAllGame = this._diedAllGame;
+    stats.bornAllGame = this._bornAllGame;
+    stats.diedLastGameState = this._diedLastGameState;
+    stats.bornCurrentGameState = this._bornCurrentGameState;
+    stats.bornLastGameState = this._bornLastGameState;
+    stats.population = this._population;
+    stats.currentPopulation = this._currentPopulation;
     return stats;
   }
 
