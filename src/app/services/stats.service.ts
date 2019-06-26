@@ -21,13 +21,14 @@ private _stats: Stats;
     this._stats.diedLastGameState = 0;
     this._stats.population = 0;
     this._stats.bornCurrentGameState = 0;
+    this._stats.bornLastGameState = 0;
   }
 
   process(cell: Cell): void {
     if (cell.isAlive) {
       if (cell.age === 0) {
         this._stats.bornAllGame++;
-        this._stats.bornCurrentGameState++;
+        this._stats.bornLastGameState++;
       }
 
       this._stats.population++;
@@ -40,8 +41,11 @@ private _stats: Stats;
       if (cell.age > this._stats.eldestCellAge) {
         this._stats.eldestCellAge = cell.age;
       }
+    } else {
+      if (cell.neighboursAlive === 3) {
+        this._stats.bornCurrentGameState++;
+      }
     }
-
   }
 
   get stats(): Stats {
