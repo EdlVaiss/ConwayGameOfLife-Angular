@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Game} from '../model/game';
 import {Cell} from '../model/cell';
 import {GameState} from '../model/game-state';
+import {Stats} from '../model/stats';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class SeDesService {
   deserialize(str: string): Game {
 
     const gameRAW = JSON.parse(str);
+
     const game = new Game(gameRAW._fieldSize);
     const gameStateCellsMap = new Map<string, Cell>();
 
@@ -32,9 +34,21 @@ export class SeDesService {
 
         gameState.cells.set(cell.id, cell);
       });
+
+      const stats =  gameStateObj._stats;
+      gameState.stats.eldestCellAge = stats._eldestCellAge;
+      gameState.stats.diedLastGameState = stats._diedLastGameState;
+      gameState.stats.diedAllGame = stats._diedAllGame;
+      gameState.stats.currentPopulation = stats._currentPopulation;
+      gameState.stats.population = stats._population;
+      gameState.stats.bornLastGameState = stats._bornLastGameState;
+      gameState.stats.bornCurrentGameState = stats._bornCurrentGameState;
+      gameState.stats.bornAllGame = stats._bornAllGame;
+
       game.history.push(gameState);
     });
-console.log('Game serialized successfully!')
+
+    console.log('Game serialized successfully!')
     return game;
   }
 }
