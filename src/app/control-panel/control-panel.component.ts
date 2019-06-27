@@ -109,6 +109,8 @@ export class ControlPanelComponent implements OnInit {
     console.log('controlComp loadGame() started');
     if (file !== undefined) {
       await this._vitalService.loadGame(file);
+      this.gameSize = this._vitalService.game.fieldSize;
+      this.dexServise.changeGameSize(this.gameSize);
       this.gamePanel.refresh();
       this.currentGen = this._vitalService.pointer;
       console.log('controlComp loadGame() finished');
