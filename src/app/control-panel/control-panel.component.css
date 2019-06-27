@@ -27,7 +27,7 @@ h5 {
   margin-top: 1em;
 }
 
-.motionControls, .sizeControls, .stats {
+.motionControls, .sizeControls, .stats, .stats div{
   display: inline-block;
   margin: 0.5em 2em;
   vertical-align: top;
@@ -54,13 +54,13 @@ label {
   box-sizing: border-box;
 }
 
-.stats label:hover{
+.saveLoad label:hover{
   background-color: #116fbf;
   color: #ffffff;
   border-color: #116fbf;
 }
 
-.stats label span {
+.saveLoad label span {
   padding: 0.429em 1em;
   display: block;
   line-height: normal;
