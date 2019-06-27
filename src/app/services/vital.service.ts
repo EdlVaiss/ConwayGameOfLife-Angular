@@ -12,7 +12,7 @@ import {StatsService} from './stats.service';
 export class VitalService {
 
   private _gameState: GameState;
-  private game: Game;
+  private _game: Game;
   private _pointer: number;
   private withinHistory: boolean;
 
@@ -43,11 +43,11 @@ export class VitalService {
   }
 
   private dropGame(fieldSize: number): void {
-    this.game = new Game(fieldSize);
+    this._game = new Game(fieldSize);
   }
 
   private pushToHistory(): void {
-   this.game.history[this._pointer - 1] = cloneDeep(this._gameState);
+   this._game.history[this._pointer - 1] = cloneDeep(this._gameState);
   }
 
   private populate(gameSize: number): void {
@@ -112,10 +112,10 @@ export class VitalService {
   nextGen(): void {
     this._pointer++;
 
-    if (this._pointer > this.game.history.length - 1) {
+    if (this._pointer > this._game.history.length - 1) {
       if (this.withinHistory) {
         this.withinHistory = false;
-        this.setNeighbours(this.game.fieldSize);
+        this.setNeighbours(this._game.fieldSize);
       }
       this.run();
       console.log('Calculated GameState #' + this._pointer);
@@ -139,8 +139,8 @@ export class VitalService {
   goToGen(index: number): void {
     if (index <= 0) {
       this._pointer = 0;
-    } else if (index > this.game.history.length - 1) {
-      this._pointer = this.game.history.length - 1;
+    } else if (index > this._game.history.length - 1) {
+      this._pointer = this._game.history.length - 1;
     } else {
       this._pointer = index;
     }
@@ -149,18 +149,18 @@ export class VitalService {
 
   retreiveFromHistory(index: number): void {
     console.log('Retreiving from history GameState #' + index);
-    this._gameState = this.game.history[index];
+    this._gameState = this._game.history[index];
   }
 
   saveGame(): void {
-    this.saveLoadService.save(this.game);
+    this.saveLoadService.save(this._game);
   }
 
   loadGame(file: File): Promise<any> {
     console.log('vitalServ loadGame() started');
     return new Promise(async (resolve) => {
     await this.saveLoadService.load(file);
-    this.game = this.saveLoadService.loadedGame;
+    this._game = this.saveLoadService.loadedGame;
     this.goToGen(0);
       console.log('vitalServ loadGame() finished');
     resolve();
@@ -173,5 +173,9 @@ export class VitalService {
 
   get pointer(): number {
     return this._pointer;
+  }
+
+  get game(): Game {
+    return this._game;
   }
 }
