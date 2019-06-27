@@ -11,18 +11,18 @@ import {Stats} from '../model/stats';
 })
 export class ControlPanelComponent implements OnInit {
 
-  private gameSize: number;
-  private speed: number;
-  private speedLabel: string;
-  private isApplyBtnDisabled = true;
-  private isStartBtnEnabled = true;
-  private previousGameSize: number;
-  private timerId: number;
-  private currentGen: number;
-  private goToGenNum: number;
-  private stats: Stats;
+   gameSize: number;
+   speed: number;
+   speedLabel: string;
+   isApplyBtnDisabled = true;
+   isStartBtnEnabled = true;
+   previousGameSize: number;
+   timerId: number;
+   currentGen: number;
+   goToGenNum: number;
+   stats: Stats;
 
-  constructor(private vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
+  constructor(private _vitalService: VitalService, private gamePanel: GamePanelComponent, private dexServise: DataExchangeService) { }
 
   ngOnInit() {
     this.dexServise.currentGameSize.subscribe(gameSize => this.gameSize = gameSize);
@@ -36,17 +36,17 @@ export class ControlPanelComponent implements OnInit {
 
 
   nextGen(): void {
-    this.vitalService.nextGen();
-    this.stats = this.vitalService.gameState.stats;
+    this._vitalService.nextGen();
+    this.stats = this._vitalService.gameState.stats;
     this.gamePanel.refresh();
-    this.currentGen = this.vitalService.pointer;
+    this.currentGen = this._vitalService.pointer;
   }
 
   previousGen(): void {
-    this.vitalService.previousGen();
-    this.stats = this.vitalService.gameState.stats;
+    this._vitalService.previousGen();
+    this.stats = this._vitalService.gameState.stats;
     this.gamePanel.refresh();
-    this.currentGen = this.vitalService.pointer;
+    this.currentGen = this._vitalService.pointer;
   }
 
   start(): void {
@@ -63,10 +63,10 @@ export class ControlPanelComponent implements OnInit {
     this.stats = new Stats();
     this.previousGameSize = this.gameSize;
     this.dexServise.changeGameSize(this.gameSize);
-    this.vitalService.reboot(this.gameSize);
+    this._vitalService.reboot(this.gameSize);
     this.isApplyBtnDisabled = true;
     this.gamePanel.refresh();
-    this.currentGen = this.vitalService.pointer;
+    this.currentGen = this._vitalService.pointer;
   }
 
   enableApplyBtn(): void {
@@ -94,24 +94,28 @@ export class ControlPanelComponent implements OnInit {
   }
 
   goToGen(): void {
-    this.vitalService.goToGen(this.goToGenNum);
-    this.stats = this.vitalService.gameState.stats;
+    this._vitalService.goToGen(this.goToGenNum);
+    this.stats = this._vitalService.gameState.stats;
     this.gamePanel.refresh();
-    this.currentGen = this.vitalService.pointer;
+    this.currentGen = this._vitalService.pointer;
     this.goToGenNum = this.currentGen;
   }
 
   saveGame(): void {
-    this.vitalService.saveGame();
+    this._vitalService.saveGame();
   }
 
   async loadGame(file: File) {
     console.log('controlComp loadGame() started');
     if (file !== undefined) {
-      await this.vitalService.loadGame(file);
+      await this._vitalService.loadGame(file);
       this.gamePanel.refresh();
-      this.currentGen = this.vitalService.pointer;
+      this.currentGen = this._vitalService.pointer;
       console.log('controlComp loadGame() finished');
     }
+  }
+
+  get vitalService(): VitalService {
+    return this._vitalService;
   }
 }

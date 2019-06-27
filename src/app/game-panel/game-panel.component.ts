@@ -25,7 +25,7 @@ export class GamePanelComponent implements OnInit {
     this.vitalService.reboot(this.gameSize);
   }
 
-  private numberArray(): any[] {
+  numberArray(): any[] {
     return Array(this.gameSize);
   }
 
